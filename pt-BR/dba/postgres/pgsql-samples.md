@@ -3,7 +3,7 @@
 Scripts e exemplos dedicados para fins de estudo do banco de dados Postgres.
 
 ### Populando tabela com registros
-```postgresql
+```plpgsql
 CREATE TABLE instrutor (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -22,7 +22,7 @@ SELECT * FROM instrutor;
 ### Criando functions
 Funções que recebem uma entrada, processam e devolvem uma saída.
 
-````postgresql
+````plpgsql
 CREATE FUNCTION dobro_do_salario(instrutor) RETURNS DECIMAL AS $$
 	SELECT $1.salario * 2 AS dobro;
 $$ LANGUAGE SQL;
@@ -66,7 +66,7 @@ SELECT * FROM instrutores_bem_pagos(300);
 ````
 
 ### Typed Functions
-````postgresql
+````plpgsql
 CREATE TYPE dois_valores AS (soma INTEGER, produto INTEGER);
 
 CREATE FUNCTION soma_e_produto (
@@ -87,7 +87,7 @@ SELECT * FROM instrutores_bem_pagos(300);
 ````
 
 ### PL/PGSQL
-````postgresql
+````plpgsql
 DROP FUNCTION data_atual;
 
 CREATE OR REPLACE FUNCTION data_atual() RETURNS TIMESTAMP AS $$
@@ -148,7 +148,7 @@ SELECT * FROM soma_e_produto(3, 9);
 ````
 
 ### PL/PGSQL - Condicionais
-````postgresql
+````plpgsql
 CREATE FUNCTION salario_ok(instrutor instrutor) RETURNS VARCHAR AS $$
 	BEGIN
 		IF (instrutor.salario > 200) THEN
@@ -215,7 +215,7 @@ SELECT instrutor.nome, salario_ok_3(instrutor.*) FROM instrutor;
 ````
 
 ### PL/PGSQL - Loops
-````postgresql
+````plpgsql
 DROP FUNCTION tabuada;
 
 CREATE FUNCTION tabuada(numero INTEGER) RETURNS SETOF VARCHAR AS $$
@@ -279,7 +279,7 @@ SELECT * FROM instrutor_com_salario();
 
 Neste exemplo foi utilizado transactions (commit/rollback), functions, cursors, triggers e logs.
 
-````postgresql
+````plpgsql
 BEGIN
 	CREATE TABLE aluno (
 		id SERIAL PRIMARY KEY,
@@ -575,7 +575,7 @@ SELECT * FROM log_instrutores;
 ````
 
 ### Rodando uma procedure avulsa
-````postgresql
+````plpgsql
 DO $$
 	DECLARE
 		refcursor_salarios refcursor;
@@ -602,7 +602,4 @@ DO $$
 		RAISE NOTICE 'Percentual: % %%', percentual;
 	END;
 $$;
-````
-
-````postgresql
 ````
