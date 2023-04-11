@@ -5,7 +5,7 @@
     * [Quem inventou o Git?](#quem-inventou-o-git)
     * [Comandos básicos](#comandos-mais-básicos-do-git)
     * [Diferencial do Git](#qual-é-o-diferencial-do-git)
-- [O Git se tornou um padrão](#o-git-se-tornou-um-padrão-)
+- [O Git se tornou um padrão](#o-git-se-tornou-um-padrão)
     * [Desempenho e flexibilidade](#desempenho-e-flexibilidade)
 - [Perguntas frequentes](#faq)
     * [Git é complicado?](#git-é-complicado)
@@ -34,7 +34,7 @@ oficial do Git.
 ### Qual é o diferencial do Git?
 Além de ser distribuído, o Git foi projetado com desempenho, segurança e flexibilidade em mente.
 
-## O Git se tornou um padrão!
+## O Git se tornou um padrão
 Um grande número de desenvolvedores já tem experiência com o Git e uma proporção significativa de recém-formados pode 
 ter experiência apenas com o Git. Embora algumas empresas precisem escalar a curva de aprendizado ao migrar para o Git 
 de outro sistema de versionamento de código, muitos desenvolvedores existentes e futuros não precisam ser treinados no Git.
