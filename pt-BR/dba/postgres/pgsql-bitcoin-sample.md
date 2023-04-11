@@ -3,7 +3,7 @@
 Processamento e consulta de Trades de Bitcoin usando features avançadas do PostgreSQL.
 
 Alterando o timezone da sessão para **'America/Sao_Paulo'**.
-```postgresql
+```plpgsql
 SHOW TIMEZONE;
 SELECT name FROM pg_timezone_names WHERE name LIKE '%America%';
 SET TIMEZONE = 'America/Sao_Paulo';
@@ -14,7 +14,7 @@ Criando a tabela referente as **Negociações de Bitcoin**:
 a menor unidade de 1.0 BTC, pois cada um é dividido em 100.000.000 de sats),
 cotação (último preço negociado na corretora, pode ser consultado na API Mercado Bitcoin),
 código do trader/usuário, tipo da oferta (Compra / Venda), data e hora.
-```postgresql
+```plpgsql
 CREATE TYPE offer_type AS ENUM ('BUY', 'SELL'); -- Compra e Venda
 
 CREATE TABLE bitcoin_trade (
@@ -31,7 +31,7 @@ CREATE TABLE bitcoin_trade (
 ```
 
 Inserindo 10 milhões de trades na tabela.
-```postgresql
+```plpgsql
 -- ################## TESTES ##################   
 DO $$
     BEGIN
@@ -46,7 +46,7 @@ $$;
 Plano de execução da consulta de saldo para o user/trader com 10 milhões de trades.
 Esta consulta possui um custo elevado mesmo que seja otimizada, vai depender do contexto
 e do volume de registros lidos e calculados dentro das CTEs.
-```postgresql
+```plpgsql
 EXPLAIN ANALYZE
     WITH
         summary (total_spent, satoshis, avg_price) AS (
@@ -96,7 +96,7 @@ O trade-off aqui é otimizar ao custo de inconsistência no cálculo de resumo d
 um job no lado da aplicação para atualizar a view materializada de hora em hora por exemplo, mas o trade-off
 continua existindo.
 
-```postgresql
+```plpgsql
 CREATE INDEX idx_bitcoin_trade ON bitcoin_trade (trader_id);
 
 CREATE MATERIALIZED VIEW bitcoin_trade_summary_view (
@@ -155,7 +155,7 @@ trigger operation de INSERT/UPDATE/DELETE na tabela das negociações (bitcoin_t
 - Docs: https://www.postgresql.org/docs/9.2/plpgsql-trigger.html
 4) Realizando testes para verificar se os cálculos estão corretos.
 
-```postgresql
+```plpgsql
 DELETE FROM bitcoin_trade;
 
 CREATE TABLE bitcoin_trader_summary (
@@ -275,7 +275,7 @@ SELECT * FROM bitcoin_trader_summary;
 ```
 
 5) Inserindo 10 milhões de trades novamente.
-```postgresql
+```plpgsql
 DO $$
     BEGIN
         FOR i IN 1..10000000 LOOP
@@ -297,7 +297,7 @@ dependendo do contexto talvez seja a única solução que atenda o requisito de 
 seguro mover essa function para uma stored procedure que garante um [lock](https://www.postgresql.org/docs/current/explicit-locking.html) 
 no registro (FOR UPDATE) dentro de uma transação, então fica aqui um ponto a ser melhorado.
 
-```postgresql
+```plpgsql
 EXPLAIN ANALYZE
     SELECT total_spent, satoshis_balance, avg_price
         FROM bitcoin_trader_summary WHERE trader_id = 10;
