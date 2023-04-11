@@ -1,4 +1,4 @@
-Git Keep | PT-BR
+Git Keep
 =================
 
-Primeiramente, publico todas as minhas anotações em português neste diretório (pt-BR), e, o que fizer sentido traduzo para inglês e publico no diretório en-US.
+Some of my notes translated to english.
