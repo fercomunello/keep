@@ -82,7 +82,7 @@ aqueles comandos que são mais usados no dia-a-dia.
 
 [Guia: Principais comandos do Git](git-commands.md)
 
-Se você ainda tem dúvidas sobre algum conceito ou gosta de conteúdo em vídeo, recomendo assistir 
+Se ainda tem dúvidas sobre algum conceito ou gosta de conteúdo em vídeo, recomendo assistir 
 essa [playlist de vídeo-aulas](https://www.youtube.com/playlist?list=PLuYctAHjg89bR5PgaAlyGCl2PWMPDMzFN) 
 do [Rinaldo (Red Hat)](https://github.com/rinaldodev) que foram publicadas no YouTube.
 
