@@ -1,25 +1,21 @@
-Git Keep
+Git Keep | PT-BR
 =================
 
-Keeping my studies and notes organized and categorized in a single repository.
+Mantendo meus estudos e anotações organizados e categorizados em um único repositório.
 
-This repo contains tips and tricks that I've found useful to keep.
-Currently, I'm migrating some of my Google Keep notes to here.
+Este repositório contém dicas e truques que considero úteis para manter.
+Atualmente, estou migrando algumas das minhas anotações do Google Keep para cá.
 
-### :: EN-US ::
-Coming soon 😅
+### [/git](git) _:: controle de versão ::_
+- [Conceitos básicos de Git](git/about-git.md)
+    * [O que é Git?](git/about-git.md#o-que-é-git)
+    * [O Git se tornou um padrão](git/about-git.md#o-git-se-tornou-um-padrão)
+    * [Perguntas frequentes](git/about-git.md#faq)
+     
 
-### :: PT-BR ::
-### [/git](pt-BR/git) _:: controle de versão ::_
-- [Conceitos básicos de Git](pt-BR/git/about-git.md)
-    * [O que é Git?](pt-BR/git/about-git.md#o-que-é-git)
-    * [O Git se tornou um padrão](pt-BR/git/about-git.md#o-git-se-tornou-um-padrão)
-    * [Perguntas frequentes](pt-BR/git/about-git.md#faq)
+- [Comandos de Git](git/git-commands.md)
 
-- [Comandos de Git](pt-BR/git/git-commands.md)
-
-### [/dba](pt-BR/dba) _:: muito SQL e conceitos de bancos de dados ::_
-#### [/postgres ](pt-BR/dba/postgres)
-- [Exemplos gerais de PL/PGSQL](pt-BR/dba/postgres/pgsql-samples.md)
-- [Otimizando trades de Bitcoin com PL/PGSQL](pt-BR/dba/postgres/pgsql-bitcoin-sample.md)
-
+### [/dba](dba) _:: muito SQL e conceitos de bancos de dados::_
+#### [/postgres ](dba/postgres)
+- [Exemplos gerais de PL/PGSQL](dba/postgres/pgsql-samples.md)
+- [Otimizando trades de Bitcoin com PL/PGSQL](dba/postgres/pgsql-bitcoin-sample.md)
