@@ -183,12 +183,15 @@ pois vai executar o statement antes de tudo.
 * Lembre-se de que, como EXPLAIN ANALYZE realmente executa a consulta, quaisquer efeitos colaterais ocorrerão 
 normalmente. Se você deseja analisar uma consulta de modificação de dados sem alterar suas tabelas, pode reverter 
 o comando posteriormente, por exemplo:
-BEGIN;
+
 
 ```plpgsql
+BEGIN;
+
 EXPLAIN ANALYZE 
     UPDATE tenk1 SET hundred = hundred + 1 
     WHERE unique1 < 100;
+
 
 /*
 OUTPUT >> QUERY PLAN
@@ -202,6 +205,7 @@ Update on tenk1  (cost=5.08..230.08 rows=0 width=0) (actual time=3.791..3.792 ro
 Planning Time: 0.113 ms
 Execution Time: 3.850 ms
 */
+
 ROLLBACK;
 ```
 
