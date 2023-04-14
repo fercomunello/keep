@@ -22,18 +22,18 @@ Segue abaixo a estrutura do comando:
 
 
 **Exemplos simples:**
-```postgresql
+```plpgsql
 EXPLAIN ANALYZE VERBOSE -- plano mais detalhado
 SELECT * FROM player ORDER BY row_version DESC LIMIT 100;
 ```
 
-```postgresql
+```plpgsql
 EXPLAIN (FORMAT YAML) -- plano formatado em YAML
 SELECT * FROM player ORDER BY row_version DESC LIMIT 100;
 ```
 
 Aqui está um exemplo trivial apenas para mostrar como funciona:
-```postgresql
+```plpgsql
 EXPLAIN SELECT * FROM player;
 ```
 
@@ -51,10 +51,10 @@ ou seja, todas as linhas disponíveis são retornadas. Na prática, o nó pai po
 as linhas disponíveis (exemplo: cláusula LIMIT).
 - 10000 - Número **estimado** de linhas retornadas. Novamente, supõe-se que o nó seja executado até a conclusão.
 - 244 - Média do tamanho estimado de cada linha retornada (em bytes). É possível ver essas estatísticas na tabela
-pg_stats, veja os [exemplos](https://www.postgresql.org/docs/current/row-estimation-examples.html).
+pg_stats, veja os [exemplos](https://www.plpgsql.org/docs/current/row-estimation-examples.html).
 
 Uma prática tradicional é medir os custos em unidades de buscas de página no disco, ou seja, o parâmetro 
-[seq_page_cost ](https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-SEQ-PAGE-COST)
+[seq_page_cost ](https://www.plpgsql.org/docs/current/runtime-config-query.html#GUC-SEQ-PAGE-COST)
 é definido convencionalmente valendo 1.0 e os outros parâmetros de custo são definidos com base neste valor. 
 
 É importante entender que o custo de um nó de nível superior (upper-level node) inclui o custo de todos os nós que 
@@ -71,12 +71,12 @@ Seq Scan on player (cost=0.00..458.00 rows=10000 width=244)
 
 O custo de leitura de cada linha é determinado pelo parâmetro abaixo:
 
-[cpu_tuple_cost](https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-CPU-TUPLE-COST) (ponto flutuante)
+[cpu_tuple_cost](https://www.plpgsql.org/docs/current/runtime-config-query.html#GUC-CPU-TUPLE-COST) (ponto flutuante)
 = 0.01 é o valor padrão
 
 Você descobrirá também que a tabela tem 358 páginas no disco e 10.000 linhas.
 Esses números são derivados de maneira muito direta. Para verificar, basta executar:
-```postgresql
+```plpgsql
 SELECT relpages AS disk_pages, -- páginas no disco
        reltuples AS num_of_rows --nº de linhas
 FROM pg_class 
@@ -96,7 +96,7 @@ Custo Estimado = 458
 ```
 
 Agora vamos adicionar um filtro na consulta:
-```postgresql
+```plpgsql
 EXPLAIN SELECT * FROM player WHERE wins < 9000;
 ```
 ```
@@ -112,13 +112,13 @@ na condição declarada, logicamente a quantidade de linhas foi reduzida de 10.0
 
 No entanto, o nó principal ("Seq Scan") ainda terá que visitar as 10.000 linhas, logo o custo não diminuiu; na
 realidade ele até subiu um pouco, aumentou 25 pontos 
-(10000 * [cpu_operator_cost](https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-CPU-OPERATOR-COST)
+(10000 * [cpu_operator_cost](https://www.plpgsql.org/docs/current/runtime-config-query.html#GUC-CPU-OPERATOR-COST)
 = 10000 * 0.0025 para ser exato), esses 25 pontos refletem o tempo extra gasto pela CPU para checar a condição
 (salary < 9000).
 
 Ok, agora vamos tornar esta condição mais restritiva!
 
-```postgresql
+```plpgsql
 EXPLAIN SELECT * FROM player WHERE wins < 100;
 ```
 ```
@@ -141,7 +141,7 @@ pelo índice em ordem física antes de lê-los, para minimizar o custo de buscas
 nos nomes dos nós é o mecanismo que faz essa classificação.
 
 Ok, entendido. Agora vamos adicionar mais uma condição:
-```postgresql
+```plpgsql
 EXPLAIN SELECT * FROM player WHERE wins < 100 AND player_group = 'xyz';
 ```
 ```
@@ -162,7 +162,7 @@ pois esse índice já foi computado na coluna `wins`.
 para refletir essa verificação extra.
 
 Em alguns casos, o planejador pode preferir um caminho mais "simples":
-```postgresql
+```plpgsql
 EXPLAIN SELECT * FROM player WHERE wins = 42;
 ```
 ```
@@ -185,7 +185,7 @@ normalmente. Se você deseja analisar uma consulta de modificação de dados sem
 o comando posteriormente, por exemplo:
 BEGIN;
 
-```postgresql
+```plpgsql
 EXPLAIN ANALYZE 
     UPDATE tenk1 SET hundred = hundred + 1 
     WHERE unique1 < 100;
@@ -207,6 +207,6 @@ ROLLBACK;
 
 **Referências:**
 
-https://www.postgresql.org/docs/current/sql-explain.html
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-explain/
-https://www.postgresql.org/docs/current/runtime-config-query.html
+https://www.plpgsql.org/docs/current/sql-explain.html
+https://www.plpgsqltutorial.com/plpgsql-tutorial/plpgsql-explain/
+https://www.plpgsql.org/docs/current/runtime-config-query.html
