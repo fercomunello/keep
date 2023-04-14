@@ -17,5 +17,6 @@ Atualmente, estou migrando algumas das minhas anotações do Google Keep para c�
 
 ### [/dba](dba) _:: muito SQL e conceitos de bancos de dados::_
 #### [/postgres ](dba/postgres)
-- [Exemplos gerais de PL/PGSQL](dba/postgres/pgsql-samples.md)
+- [Como funciona o plano de execução no Postgres](dba/postgres/pg-explain-plan.md)
 - [Otimizando trades de Bitcoin com PL/PGSQL](dba/postgres/pgsql-bitcoin-sample.md)
+- [Exemplos gerais de PL/PGSQL](dba/postgres/pgsql-samples.md)
