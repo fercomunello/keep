@@ -35,7 +35,8 @@
 - git pull upstream main –rebase;
 - git config --global init.defaultBranch main
 - git branch -m main
-
+- git config --global --unset credential.helper
+- git config --global credential.helper cache
 ### References
 
 1. http://gitolite.com/gcs.html#(1) (explicado página por página)
